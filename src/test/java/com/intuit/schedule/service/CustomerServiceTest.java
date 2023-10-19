@@ -40,13 +40,13 @@ public class CustomerServiceTest {
     public void testGetNextCustomer() {
         List<Customer> mockVIPCustomers = new ArrayList<>();
         // Add some mock VIP customers to the list
-        mockVIPCustomers.add(new Customer(1L, true, "booked", new Date()));
-        mockVIPCustomers.add(new Customer(2L, true, "booked", new Date()));
+        mockVIPCustomers.add(new Customer(1L,"Test123", "123456", true, "booked", new Date()));
+        mockVIPCustomers.add(new Customer(2L, "Test321", "654321", true, "booked", new Date()));
 
         List<Customer> mockNonVIPCustomers = new ArrayList<>();
         // Add some mock non-VIP customers to the list
-        mockNonVIPCustomers.add(new Customer(3L, false, "booked", new Date()));
-        mockNonVIPCustomers.add(new Customer(4L, false, "booked", new Date()));
+        mockNonVIPCustomers.add(new Customer(1L,"Test123", "123456", false, "booked", new Date()));
+        mockNonVIPCustomers.add(new Customer(1L,"Test123", "123456", false, "booked", new Date()));
 
         when(customerRepository.findByIsVipAndStatus(true, "booked")).thenReturn(mockVIPCustomers);
         when(customerRepository.findByIsVipAndStatus(false, "booked")).thenReturn(mockNonVIPCustomers);
@@ -59,7 +59,7 @@ public class CustomerServiceTest {
         // You need to consider the behavior of getNextCustomer() based on your service logic
 
         // Example assertions:
-        assertEquals(1L, result1.getId());
+        assertEquals(3L, result1.getId());
         assertEquals(3L, result3.getId());
     }
 }

@@ -4,7 +4,6 @@ import com.intuit.schedule.entity.Customer;
 import com.intuit.schedule.service.CustomerService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;

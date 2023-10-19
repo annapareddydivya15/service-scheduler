@@ -20,8 +20,7 @@ import java.util.Optional;
 @Slf4j
 public class ScheduleController {
 
-    @Autowired
-    private CustomerService service;
+    private final CustomerService service;
 
     @Autowired
     public ScheduleController(CustomerService service) {

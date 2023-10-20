@@ -21,13 +21,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    // global exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> handleGlobalException(Exception exception, WebRequest webRequest) {
         ErrorDetails errorDetails = null;
 
         if (exception instanceof MethodArgumentNotValidException) {
-            errorDetails = new ErrorDetails(new Date(), "Requiared Params should not be null", webRequest.getDescription(false));
+            errorDetails = new ErrorDetails(new Date(), "Required Params should not be null", webRequest.getDescription(false));
         } else {
             errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
                     webRequest.getDescription(false));

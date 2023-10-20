@@ -17,10 +17,6 @@ import java.util.Optional;
 
 public class ScheduleControllerTest {
 
-
-
-
-
     @Mock
     private CustomerService customerService;
 
@@ -74,7 +70,7 @@ public class ScheduleControllerTest {
 
     @Test
     public void testCreateCustomer() {
-        Customer customer = new Customer(); // Set up a customer object
+        Customer customer = new Customer();
         when(customerService.save(customer)).thenReturn(customer);
 
         ResponseEntity<Customer> response = scheduleController.createCustomer(customer);
@@ -99,7 +95,6 @@ public class ScheduleControllerTest {
     public void testUpdateCustomerNotFound() {
         Long customerId = 4L;
         when(customerService.findById(customerId)).thenReturn(Optional.empty());
-
         ResponseEntity<Customer> response = scheduleController.updateCustomer(customerId);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

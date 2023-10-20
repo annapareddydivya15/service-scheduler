@@ -44,21 +44,18 @@ public class ScheduleController {
 
     @ApiOperation("Find all customers")
     @GetMapping("/findAll")
-    public ResponseEntity<List<Customer>>  findAll(){
+    public ResponseEntity<List<Customer>> findAll() {
         return ResponseEntity.ok(service.getCustomer());
     }
 
 
     @ApiOperation("Create a new customer")
     @PostMapping("/createCustomer")
-    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer){
+    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
         log.info("customer is:{}", customer);
         customer.setTime(new Date());
         return ResponseEntity.ok(service.save(customer));
     }
-
-
-    // Patch is for partial update here updating only status once the user is checked in
 
     @ApiOperation("Update customer status")
     @PatchMapping("/{id}")

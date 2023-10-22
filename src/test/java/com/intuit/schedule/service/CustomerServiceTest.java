@@ -40,16 +40,16 @@ public class CustomerServiceTest {
     public void testGetNextCustomer() {
         List<Customer> mockVIPCustomers = new ArrayList<>();
         // Add some mock VIP customers to the list
-        mockVIPCustomers.add(new Customer(1L, "Test123", "123456", true, "booked", new Date()));
-        mockVIPCustomers.add(new Customer(2L, "Test321", "654321", true, "booked", new Date()));
+        mockVIPCustomers.add(new Customer(1L, "Test123", "123456", true, Customer.StatusType.booked, new Date()));
+        mockVIPCustomers.add(new Customer(2L, "Test321", "654321", true, Customer.StatusType.booked, new Date()));
 
         List<Customer> mockNonVIPCustomers = new ArrayList<>();
         // Add some mock non-VIP customers to the list
-        mockNonVIPCustomers.add(new Customer(1L, "Test123", "123456", false, "booked", new Date()));
-        mockNonVIPCustomers.add(new Customer(1L, "Test123", "123456", false, "booked", new Date()));
+        mockNonVIPCustomers.add(new Customer(1L, "Test123", "123456", false, Customer.StatusType.booked, new Date()));
+        mockNonVIPCustomers.add(new Customer(1L, "Test123", "123456", false, Customer.StatusType.booked, new Date()));
 
-        when(customerRepository.findByIsVipAndStatus(true, "booked")).thenReturn(mockVIPCustomers);
-        when(customerRepository.findByIsVipAndStatus(false, "booked")).thenReturn(mockNonVIPCustomers);
+        when(customerRepository.findByIsVipAndStatus(true, Customer.StatusType.booked)).thenReturn(mockVIPCustomers);
+        when(customerRepository.findByIsVipAndStatus(false, Customer.StatusType.booked)).thenReturn(mockNonVIPCustomers);
 
         Customer result1 = customerService.getNextCustomer();
         Customer result2 = customerService.getNextCustomer();

@@ -23,21 +23,22 @@ public class CustomerService {
 
     public Customer getNextCustomer() {
 
-        List<Customer> vipCustomers = repository.findByIsVipAndStatus(true, "booked");
-        PriorityQueue<Customer> customerQueue = getCustomers(vipCustomers);
+        List<Customer> vipCustomers = repository.findByIsVipAndStatus(true, Customer.StatusType.booked);
+        PriorityQueue<Customer> vipQueue = getCustomers(vipCustomers);
 
-        List<Customer> nonVipCustomers = repository.findByIsVipAndStatus(false, "booked");
+        List<Customer> nonVipCustomers = repository.findByIsVipAndStatus(false, Customer.StatusType.booked);
         PriorityQueue<Customer> nonVipCustomerQueue = getCustomers(nonVipCustomers);
 
+        if (!vipQueue.isEmpty() && vipCount.get()!=2) {
+            log.info("in vip peek is:{}", nonVipCustomerQueue.peek());
+            vipCount.getAndIncrement();
+            return vipQueue.peek();
+        }
         if (vipCount.get() == 2 && !nonVipCustomerQueue.isEmpty()) {
             vipCount.set(0);
             return nonVipCustomerQueue.peek();
-        }
-
-        if (!customerQueue.isEmpty()) {
-            System.out.println("in vip peek is:" + nonVipCustomerQueue.peek());
-            vipCount.getAndIncrement();
-            return customerQueue.peek();
+        } else if (vipQueue.isEmpty()) {
+            return nonVipCustomerQueue.peek();
         }
 
         return null;

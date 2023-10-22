@@ -86,7 +86,7 @@ public class ScheduleControllerTest {
         when(customerService.findById(customerId)).thenReturn(Optional.of(customer));
         when(customerService.save(customer)).thenReturn(customer);
 
-        ResponseEntity<Customer> response = scheduleController.updateCustomer(customerId);
+        ResponseEntity<Customer> response = scheduleController.updateCustomer(customerId, "checkedIn");
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("CheckedIn", response.getBody().getStatus());
     }
@@ -95,7 +95,7 @@ public class ScheduleControllerTest {
     public void testUpdateCustomerNotFound() {
         Long customerId = 4L;
         when(customerService.findById(customerId)).thenReturn(Optional.empty());
-        ResponseEntity<Customer> response = scheduleController.updateCustomer(customerId);
+        ResponseEntity<Customer> response = scheduleController.updateCustomer(customerId, "cancel");
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
